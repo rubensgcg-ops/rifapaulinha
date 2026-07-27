@@ -1,3 +1,16 @@
+Aqui está o código ajustado com os novos parâmetros de contraste e legibilidade:
+
+* **Texto em Preto Puro (`#000000`):** Tanto nos números **Disponíveis** quanto nos **Reservados**, o texto agora é preto para dar o máximo de contraste.
+* **Fonte Maior e Mais Encorpada:** Aumentamos o tamanho e o peso da fonte (`font-weight: 900`), garantindo ótima nitidez até em telas de celular pequenas ou sob luz do sol.
+* **Tamanho Ajustado na Exportação:** Quando gerar a imagem PNG, os números também sairão maiores e com leitura super nítida.
+
+---
+
+### Código Atualizado (`index.html`)
+
+Substitua todo o conteúdo do seu arquivo `index.html` no GitHub por este código:
+
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -51,7 +64,7 @@
     .btn-reload:hover { background-color: #01579b; }
     
     .legend { display: flex; gap: 15px; width: 100%; justify-content: center; margin-bottom: 5px; }
-    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; color: #000000; }
     .box { width: 18px; height: 18px; border-radius: 50%; display: inline-block; }
     
     .legend-disp { background-color: #ffffff; border: 3px solid #1976d2; }
@@ -72,28 +85,28 @@
       margin-top: 0; 
       margin-bottom: 15px; 
       font-size: clamp(18px, 5vw, 26px); 
-      font-weight: 800; 
+      font-weight: 900; 
       text-transform: uppercase; 
       letter-spacing: 0.5px; 
       padding: 0 5px;
     }
 
-    /* Grade adaptável para celulares (ajusta as colunas dinamicamente na tela) */
+    /* Grade adaptável para celulares */
     .grid { 
       display: grid; 
-      grid-template-columns: repeat(auto-fill, minmax(42px, 1fr)); 
+      grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); 
       gap: 6px; 
       margin-top: 15px; 
       justify-items: center; 
     }
 
-    /* Regra para telas médias/grandes (PC e Tablets deitados): Fixa em 15 colunas */
+    /* Regra para telas médias/grandes: Fixa em 15 colunas */
     @media (min-width: 768px) {
       #rifa-container { padding: 35px 25px; }
       .grid { grid-template-columns: repeat(15, 1fr); gap: 8px; }
     }
     
-    /* Estilo circular dos números */
+    /* Estilo circular com texto PRETO e bem GRANDE/NEGRITO */
     .num { 
       width: 100%;
       max-width: 48px;
@@ -102,30 +115,29 @@
       display: flex; 
       align-items: center; 
       justify-content: center; 
-      font-weight: 800; 
-      font-size: clamp(10px, 3.2vw, 14px); 
+      font-weight: 900; 
+      font-size: clamp(12px, 3.8vw, 15px); 
+      color: #000000; /* Texto totalmente preto */
       user-select: none; 
       cursor: default;
     }
 
-    /* Disponível */
+    /* Disponível: Fundo Branco, Contorno Azul */
     .disponivel { 
       background-color: #ffffff; 
       border: 3px solid #1976d2; 
-      color: #1976d2; 
     }
 
-    /* Reservado */
+    /* Reservado: Fundo Cinza Claro, Contorno Cinza */
     .reservado { 
       background-color: #e0e0e0; 
       border: 3px solid #9e9e9e; 
-      color: #616161; 
       text-decoration: line-through;
     }
     
-    #status-msg { font-size: 12px; color: #777; margin-top: 15px; }
+    #status-msg { font-size: 12px; color: #555; font-weight: 600; margin-top: 15px; }
 
-    /* Estilo auxiliar para captura da imagem PNG em alta definição */
+    /* Estilo para gerar a imagem PNG perfeita */
     .export-mode {
       width: 880px !important;
       max-width: none !important;
@@ -138,7 +150,8 @@
     .export-mode .num {
       width: 48px !important;
       height: 48px !important;
-      font-size: 14px !important;
+      font-size: 15px !important;
+      font-weight: 900 !important;
     }
   </style>
 </head>
@@ -207,7 +220,6 @@
     function downloadImage() {
       const container = document.getElementById('rifa-container');
       
-      // Aplica temporariamente a formatação de 15 colunas perfeito para a foto
       container.classList.add('export-mode');
 
       html2canvas(container, { 
@@ -219,7 +231,6 @@
         link.href = canvas.toDataURL('image/png');
         link.click();
         
-        // Remove a formatação temporária voltando ao layout da tela do celular
         container.classList.remove('export-mode');
       }).catch(err => {
         container.classList.remove('export-mode');
@@ -232,3 +243,5 @@
   </script>
 </body>
 </html>
+
+```
